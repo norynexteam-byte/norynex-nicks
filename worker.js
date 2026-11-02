@@ -34,12 +34,23 @@ export default {
       nick = nick.replace(/[\r\n=]/g, "").replace(/[&§]k/gi, ""); // kein Zeilenumbruch, kein "Zauber-Text"
       if (nick.length > MAX_NICK) return text("Nickname zu lang (max " + MAX_NICK + ")", 400);
 
-      // Minecraft-Login pruefen (wie beim Betreten eines Servers)
-      const check = await fetch(
-        "https://sessionserver.mojang.com/session/minecraft/hasJoined?username=" +
-          encodeURIComponent(username) + "&serverId=" + encodeURIComponent(serverId));
-      if (check.status !== 200) return text("Minecraft-Login konnte nicht bestaetigt werden", 403);
-      const profile = await check.json();
+      // Minecraft-Login pruefen (wie beim Betreten eines Servers). Mojang braucht manchmal kurz,
+      // deshalb bis zu 5 Versuche.
+      const checkUrl = "https://sessionserver.mojang.com/session/minecraft/hasJoined?username=" +
+        encodeURIComponent(username) + "&serverId=" + encodeURIComponent(serverId);
+      let profile = null, lastStatus = 0;
+      for (let i = 0; i < 5 && !profile; i++) {
+        if (i > 0) await new Promise((r) => setTimeout(r, 700));
+        try {
+          const check = await fetch(checkUrl, { headers: { "user-agent": "DevClient-NickService/1.0" } });
+          lastStatus = check.status;
+          if (check.status === 200) {
+            const p = await check.json();
+            if (p && p.name) profile = p;
+          }
+        } catch (e) { lastStatus = -1; }
+      }
+      if (!profile) return text("Login-Pruefung fehlgeschlagen (Mojang " + lastStatus + ")", 403);
       const realName = profile.name;
 
       const all = (await env.NICKS.get("all", "json")) || {};
