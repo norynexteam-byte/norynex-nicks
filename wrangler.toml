@@ -6,3 +6,11 @@ workers_dev = true
 [[kv_namespaces]]
 binding = "NICKS"
 id = "dd5df39a998a4aceb5580d1d044c6cc9"
+
+[[durable_objects.bindings]]
+name = "PRESENCE"
+class_name = "Presence"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["Presence"]
