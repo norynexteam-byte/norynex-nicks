@@ -1,0 +1,6 @@
+# Norynex Client Nickname-Liste
+# Pro Zeile: MinecraftName=Nickname
+# Farben mit & gehen auch: &c = rot, &a = grün, &b = hellblau, &d = pink, &6 = gold, &l = fett
+# Zeilen mit # am Anfang werden ignoriert.
+
+DeinMinecraftName=&dDein Nickname
