@@ -7,8 +7,9 @@ Nickname-Dienst für den Norynex Client (Cloudflare Worker).
 
 Jeder Push auf `main` wird automatisch auf Cloudflare deployt.
 
-## Dev Client Auto-Update
+## SMP Better Client Auto-Update
 - `client/version.txt` – aktuelle Version
-- `client/dev-client.jar` – aktuelle Mod-Datei
+- `client/smp-better-client.jar` – aktuelle Mod-Datei (ab 3.0)
+- `client/dev-client.jar` – gleiche Datei, fuer alte Versionen (bis 2.6), damit sie sich selbst aktualisieren
 
 Der Client prüft beim Start diese Version und lädt Updates automatisch herunter (aktiv nach Neustart).
