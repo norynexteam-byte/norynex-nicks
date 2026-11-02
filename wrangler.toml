@@ -1,0 +1,8 @@
+name = "norynex-nicks"
+main = "worker.js"
+compatibility_date = "2025-09-01"
+workers_dev = true
+
+[[kv_namespaces]]
+binding = "NICKS"
+id = "dd5df39a998a4aceb5580d1d044c6cc9"

@@ -1,3 +1,8 @@
 # norynex-nicks
 
-Nickname-Liste für den Norynex Client. Format in `nicknames.txt`: `MinecraftName=Nickname` (Farben mit `&`).
+Nickname-Dienst für den Norynex Client (Cloudflare Worker).
+
+- `GET /nicks.txt` – Liste `MinecraftName=Nickname`
+- `POST /set` – Nickname setzen (Prüfung über Minecraft-Login)
+
+Jeder Push auf `main` wird automatisch auf Cloudflare deployt.
